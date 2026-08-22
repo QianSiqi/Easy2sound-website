@@ -1,0 +1,37 @@
+<!-- ===== 意见反馈 (Feedback & Community - Seamless Timeline) ===== -->
+
+<div class="fluid-container">
+    <div class="subpage-fluid-header">
+        <h1>意见与问题反馈</h1>
+        <p>欢迎写下您的使用体验、建议或遇到的异常问题</p>
+    </div>
+
+    <!-- 反馈时间线流容器 -->
+    <div class="fb-timeline-wrap">
+        <!-- 输入区 -->
+        <div class="fb-input-wrap">
+            <input type="text" class="fb-input" id="fbInput" placeholder="写下您的使用体验或建议（按回车或点击提交）...">
+            <button class="btn-beam" id="fbSubmit" style="min-width:120px;flex-shrink:0;">
+                <svg class="icon-svg" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span>提交反馈</span>
+            </button>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;color:var(--text-subhead);font-size:13px;margin-bottom:40px;flex-wrap:wrap;gap:8px;">
+            <span>• 登录后提交将自动关联您的专属 UID 与头像</span>
+            <a href="feedback2.html" style="color:#c084fc;text-decoration:none;">如遇脚本异常，访问备用反馈页 →</a>
+        </div>
+
+        <h3 style="font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+            <svg class="icon-svg" viewBox="0 0 24 24" style="color:#c084fc;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>社区最新交流动态</span>
+        </h3>
+
+        <!-- 反馈动态流 -->
+        <div id="fbList">
+            <div style="text-align:center;color:var(--text-subhead);padding:30px 0;">
+                正在获取最新反馈...
+            </div>
+        </div>
+    </div>
+</div>

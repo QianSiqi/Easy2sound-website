@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy2Sound - 源代码</title>
+    <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/jpeg" href="图标.jpg">
+        <style>
+                    /* 卡片错开入场 */
+        .stagger-1 { animation: cardIn 0.45s ease both; }
+        .stagger-2 { animation: cardIn 0.45s 0.08s ease both; }
+        .stagger-3 { animation: cardIn 0.45s 0.16s ease both; }
+        .stagger-4 { animation: cardIn 0.45s 0.24s ease both; }
+        .stagger-5 { animation: cardIn 0.45s 0.32s ease both; }
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        </style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<div class="nav-container">
+    <div class="nav">
+        <a href="index.html" id="nav1">主页</a>
+        <a href="download.html" id="nav2">下载</a>
+        <a href="voicebank.html" id="nav3">声库</a>
+        <a href="feedback.html" id="nav4">反馈问题</a>
+        <a href="team.html" id="nav5">制作组名单</a>
+        <a href="donation.html" id="nav6">投喂</a>
+        <a href="source.html" id="nav7"  class="active">源代码</a>
+    </div>
+    <div class="user-info" id="userInfo"></div>
+</div>
+
+<!-- 源代码内容 -->
+<div class="glass-card stagger-1" style="text-align:center;">
+    <h1>源代码</h1>
+    <p style="margin-bottom:32px; font-size:18px;">你终于来了，这可是我们团队的机密</p>
+
+    <a href="https://www.bilibili.com/video/BV1uT4y1P7CX/" class="btn btn-primary" style="font-size:18px; padding:16px 40px; margin-bottom:24px;">
+        🎬 机密视频
+    </a>
+
+    <p style="color:#fca5a5; font-size:16px; margin-bottom:24px;">一定要看，不然链接就被安全部的人删掉了！！！！！！</p>
+    <!--骗你的删了我还不乐意呢-->
+
+    <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:24px; display:inline-block;">
+        <p style="color:rgba(255,255,255,0.7); margin-bottom:12px;">源代码托管在 GitHub</p>
+        <a href="https://github.com/QianSiqi/Easy2Sound" class="btn btn-ghost">
+            📦 GitHub 仓库
+        </a>
+    </div>
+</div>
+
+<!-- 登录弹窗 -->
+<div class="login-modal" id="loginModal">
+    <div class="modal-container">
+        <button class="close-modal" id="closeModal">&times;</button>
+        <div class="tabs">
+            <div class="tab active" data-tab="login">登录</div>
+            <div class="tab" data-tab="register">注册</div>
+        </div>
+        <div class="form-section active" id="login">
+            <div class="form-group">
+                <label>用户名</label>
+                <input type="text" id="login-username" placeholder="请输入用户名">
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="login-password" placeholder="请输入密码">
+            </div>
+            <button class="form-btn" id="login-btn">登录</button>
+            <div class="message" id="login-message"></div>
+        </div>
+        <div class="form-section" id="register">
+            <div class="form-group">
+                <label>用户名</label>
+                <input type="text" id="reg-username" placeholder="请设置用户名">
+            </div>
+            <div class="form-group">
+                <label>邮箱</label>
+                <input type="email" id="reg-email" placeholder="请输入邮箱">
+            </div>
+            <div class="form-group">
+                <label>QQ号（自动生成头像）</label>
+                <input type="number" id="reg-qq" placeholder="选填，输入后自动获取QQ头像">
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="reg-password" placeholder="请设置密码">
+            </div>
+            <button class="form-btn" id="register-btn">注册</button>
+            <div class="message" id="register-message"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 头像设置弹窗 -->
+<div class="avatar-setting-modal" id="avatarSettingModal">
+    <div class="avatar-setting-container">
+        <button class="close-modal" id="closeAvatarModal">&times;</button>
+        <h3 style="text-align:center; color:#fff; margin-bottom:20px; font-size:1.2rem;">设置头像</h3>
+        <div class="avatar-preview">
+            <img class="avatar-preview-img" id="avatarPreviewImg">
+        </div>
+        <p class="avatar-tips">选择以下方式设置头像（优先使用上传的头像）</p>
+        <div class="upload-box" id="uploadBox">
+            <p class="upload-text">点击上传本地头像（支持jpg/png格式）</p>
+            <input type="file" id="avatarFile" accept="image/jpeg,image/png">
+        </div>
+        <div class="form-group">
+            <label>QQ号（自动生成头像）</label>
+            <input type="number" id="setting-qq" placeholder="输入QQ号自动生成头像">
+        </div>
+        <div class="form-group">
+            <label>自定义头像URL</label>
+            <input type="text" id="setting-avatar-url" placeholder="输入头像图片链接（上传后自动填充）">
+        </div>
+        <button class="form-btn" id="saveAvatarBtn">保存</button>
+        <div class="message" id="avatar-message"></div>
+    </div>
+</div>
+<script src="loginRegister.js"></script>
+</body>
+</html>

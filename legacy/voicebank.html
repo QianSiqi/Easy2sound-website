@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy2Sound</title>
+    <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/jpeg" href="图标.jpg">
+</head>
+<body>
+<style>
+            /* 卡片错开入场 */
+        .stagger-1 { animation: cardIn 0.45s ease both; }
+        .stagger-2 { animation: cardIn 0.45s 0.08s ease both; }
+        .stagger-3 { animation: cardIn 0.45s 0.16s ease both; }
+        .stagger-4 { animation: cardIn 0.45s 0.24s ease both; }
+        .stagger-5 { animation: cardIn 0.45s 0.32s ease both; }
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 声库卡片网格 */
+        .vb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 14px;
+            margin-top: 24px;
+        }
+        .vb-card {
+            background: rgba(30,30,55,0.7);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .vb-card:hover {
+            background: rgba(40,40,70,0.85);
+            border-color: rgba(167,139,250,0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+        .vb-card-img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            display: block;
+        }
+        .vb-card-body {
+            padding: 12px 14px;
+        }
+        .vb-card-body h3 {
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .vb-card-body p {
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .vb-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 8px;
+            background: rgba(167,139,250,0.15);
+            color: #a78bfa;
+        }
+
+
+        /* 声库详情弹窗 */
+        .vb-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .vb-modal.active { display: flex; }
+        .vb-modal-box {
+            background: rgba(18,18,36,0.97);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 640px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 36px;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+        }
+        .vb-modal-img {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+        .vb-modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .vb-modal-desc {
+            color: rgba(255,255,255,0.65);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .vb-audio-player {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+        .vb-demo-label {
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+</style>
+<!-- 导航栏 -->
+<div class="nav-container">
+    <div class="nav" id="navLinks">
+        <a href="index.html" id="nav1">主页</a>
+        <a href="download.html" id="nav2">下载</a>
+        <a href="voicebank.html" id="nav3"  class="active">声库</a>
+        <a href="feedback.html" id="nav4">反馈问题</a>
+        <a href="team.html" id="nav5">制作组名单</a>
+        <a href="donation.html" id="nav6">投喂</a>
+        <a href="source.html" id="nav7">源代码</a>
+    </div>
+    <div class="user-info" id="userInfo"></div>
+</div>
+
+<!-- 登录弹窗 -->
+<div class="login-modal" id="loginModal">
+    <div class="modal-container">
+        <button class="close-modal" id="closeModal">&times;</button>
+        <div class="tabs">
+            <div class="tab active" data-tab="login">登录</div>
+            <div class="tab" data-tab="register">注册</div>
+        </div>
+        <div class="form-section active" id="login">
+            <div class="form-group">
+                <label>用户名</label>
+                <input type="text" id="login-username" placeholder="请输入用户名">
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="login-password" placeholder="请输入密码">
+            </div>
+            <button class="form-btn" id="login-btn">登录</button>
+            <div class="message" id="login-message"></div>
+        </div>
+        <div class="form-section" id="register">
+            <div class="form-group">
+                <label>用户名</label>
+                <input type="text" id="reg-username" placeholder="请设置用户名">
+            </div>
+            <div class="form-group">
+                <label>邮箱</label>
+                <input type="email" id="reg-email" placeholder="请输入邮箱">
+            </div>
+            <div class="form-group">
+                <label>QQ号（自动生成头像）</label>
+                <input type="number" id="reg-qq" placeholder="选填，输入后自动获取QQ头像">
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="reg-password" placeholder="请设置密码">
+            </div>
+            <button class="form-btn" id="register-btn">注册</button>
+            <div class="message" id="register-message"></div>
+        </div>
+    </div>
+</div>
+
+        <div class="glass-card stagger-1">
+            <h1>声库一览</h1>
+            <p>探索 Easy2Sound 支持的各类声库，点击卡片可试听 Demo 和观看演示视频</p>
+            <div class="vb-grid" id="vbGrid">
+                <div style="text-align:center;color:rgba(255,255,255,0.4);padding:40px;grid-column:1/-1;">正在加载声库...</div>
+            </div>
+        </div>
+        <!-- 声库详情弹窗 -->
+<div class="vb-modal" id="vbModal">
+    <div class="vb-modal-box">
+        <button class="close-modal" onclick="closeVBModal()">&times;</button>
+        <img class="vb-modal-img" id="vbModalImg" src="" alt="">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+            <span class="vb-modal-title" id="vbModalTitle"></span>
+            <span class="vb-tag" id="vbModalTag"></span>
+        </div>
+        <p class="vb-modal-desc" id="vbModalDesc"></p>
+        <div id="vbDemoWrap" style="display:none;">
+            <p class="vb-demo-label">🎵 Demo 试听</p>
+            <audio class="vb-audio-player" id="vbDemoPlayer" controls></audio>
+        </div>
+        <div id="vbVideoWrap" style="display:none;">
+            <p class="vb-demo-label" style="margin-top:16px;">🎬 演示视频</p>
+            <div class="video-embed">
+                <iframe id="vbVideoFrame" src="" scrolling="no" allowfullscreen="true" sandbox="allow-top-navigation allow-same-origin allow-scripts allow-popups"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // 加载声库数据（从同目录下的 voicebank.json 读取）
+async function loadVoicebanks() {
+    const grid = document.getElementById('vbGrid');
+    if (!grid) return;
+    try {
+        const res = await fetch('voicebank.json?' + Date.now());
+        const voicebanks = await res.json();
+        // 存到全局，供 openVBModal 使用
+        window.voicebanks = voicebanks;
+        // 渲染卡片
+        grid.innerHTML = voicebanks.map(vb => `
+            <div class="vb-card" data-vb="${vb.id}" onclick="openVBModal('${vb.id}')">
+                <img class="vb-card-img" src="${vb.img}" alt="${vb.name}">
+                <div class="vb-card-body">
+                    <h3>${vb.name}</h3>
+                    <p>${vb.desc.slice(0, 50)}...</p>
+                    <span class="vb-tag">${vb.tag}</span>
+                </div>
+            </div>
+        `).join('');
+    } catch (e) {
+        grid.innerHTML = `<div style="text-align:center;color:rgba(255,255,255,0.4);padding:40px;">加载失败：${e.message}</div>`;
+    }
+}
+
+// 页面加载完成后自动执行
+document.addEventListener('DOMContentLoaded', loadVoicebanks);
+        // ========== 声库弹窗 ==========
+function openVBModal(id) {
+    const vb = voicebanks.find(v => v.id === id);
+    if (!vb) return;
+    const modal = document.getElementById('vbModal');
+    document.getElementById('vbModalImg').src = vb.img;
+    document.getElementById('vbModalTitle').textContent = vb.name;
+    document.getElementById('vbModalDesc').textContent = vb.desc;
+    document.getElementById('vbModalTag').textContent = vb.tag;
+
+    // Demo 音频
+    const demoWrap = document.getElementById('vbDemoWrap');
+    const demoPlayer = document.getElementById('vbDemoPlayer');
+    if (vb.demo) {
+        demoWrap.style.display = 'block';
+        demoPlayer.src = vb.demo;
+    } else {
+        demoWrap.style.display = 'none';
+        demoPlayer.src = '';
+    }
+
+    // 视频
+    const videoWrap = document.getElementById('vbVideoWrap');
+    if (vb.bvid) {
+        videoWrap.style.display = 'block';
+        document.getElementById('vbVideoFrame').src = `https://player.bilibili.com/player.html?bvid=${vb.bvid}&autoplay=0&high_quality=1`;
+    } else {
+        videoWrap.style.display = 'none';
+        document.getElementById('vbVideoFrame').src = '';
+    }
+
+    modal.classList.add('active');
+}
+
+function closeVBModal() {
+    const modal = document.getElementById('vbModal');
+    modal.classList.remove('active');
+    document.getElementById('vbDemoPlayer').pause();
+    document.getElementById('vbVideoFrame').src = '';
+}
+</script>
+<script src="loginRegister.js"></script>
+</body>
+</html>

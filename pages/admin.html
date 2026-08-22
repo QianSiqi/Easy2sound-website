@@ -1,0 +1,40 @@
+<!-- ===== 管理控制台 (Admin Dashboard - Borderless Layout) ===== -->
+
+<div class="fluid-container">
+    <div class="subpage-fluid-header" style="text-align:left;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;border-bottom:1px solid rgba(255,255,255,0.12);padding-bottom:28px;">
+        <div>
+            <h1 style="margin-bottom:6px;">管理控制台</h1>
+            <p>站内用户数据与社区反馈审核管理（仅管理员权限开放）</p>
+        </div>
+        <span class="admin-badge">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5v-2z"/></svg>
+            <span>Root Admin</span>
+        </span>
+    </div>
+
+    <!-- 反馈审核流 -->
+    <div style="max-width:960px;margin:40px auto 60px;">
+        <h3 style="font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+            <svg class="icon-svg" viewBox="0 0 24 24" style="color:#c084fc;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>反馈数据审核</span>
+        </h3>
+        <div id="admFbList">
+            <div style="text-align:center;color:var(--text-subhead);padding:24px;">
+                正在读取反馈数据...
+            </div>
+        </div>
+    </div>
+
+    <!-- 用户账号管理 -->
+    <div style="max-width:960px;margin:0 auto 100px;">
+        <h3 style="font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+            <svg class="icon-svg" viewBox="0 0 24 24" style="color:#c084fc;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>注册用户管理</span>
+        </h3>
+        <div id="admUserList">
+            <div style="text-align:center;color:var(--text-subhead);padding:24px;">
+                正在读取用户名单...
+            </div>
+        </div>
+    </div>
+</div>

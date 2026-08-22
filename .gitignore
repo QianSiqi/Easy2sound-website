@@ -1,0 +1,33 @@
+# ===== Node =====
+node_modules/
+api/node_modules/
+
+# ===== 运行时数据（不要进版本库） =====
+api/data.db
+api/data.db.bak
+api/data.db-journal
+api/uploads/
+api/.env
+
+# ===== 大文件（GitHub 单文件上限 100MB） =====
+WIN/resampler.zip
+
+# ===== 日志 =====
+*.log
+
+# ===== IDE / 编辑器 =====
+.metadata/
+.idea/
+.vscode/
+*.swp
+proxy.properties
+
+# ===== 备份文件 =====
+*.bak*
+
+# ===== 系统文件 =====
+Thumbs.db
+.DS_Store
+
+# ===== 构建产物 =====
+mirror-frontend.tar.gz

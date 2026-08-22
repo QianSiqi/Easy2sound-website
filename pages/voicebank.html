@@ -1,0 +1,36 @@
+<!-- ===== 声库中心 (Voicebank Hub - Borderless Gallery) ===== -->
+
+<div class="fluid-container">
+    <div class="subpage-fluid-header">
+        <h1>精选声库一览</h1>
+        <p>探索与试听 Easy2Sound 支持的各类歌姬音源，点击卡片即可试听与查看详情</p>
+    </div>
+
+    <!-- 搜索与分类 -->
+    <div class="fb-input-wrap" style="max-width:640px;margin:0 auto 20px;">
+        <input type="text" id="search1" class="fb-input" placeholder="输入声库名称、音色特征或标签...">
+        <button class="btn-beam" style="min-width:110px;flex-shrink:0;" onclick="searchVoicebanks()">
+            <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>搜索</span>
+        </button>
+    </div>
+
+    <div class="filter-tabs">
+        <button class="filter-pill active" data-tag="all" onclick="filterVoicebanks('all')">
+            <span>全部声库</span>
+        </button>
+        <button class="filter-pill" data-tag="女声" onclick="filterVoicebanks('女声')">
+            <span>女声</span>
+        </button>
+        <button class="filter-pill" data-tag="男声" onclick="filterVoicebanks('男声')">
+            <span>男声</span>
+        </button>
+    </div>
+
+    <!-- 声库流体画廊 -->
+    <div class="vb-grid" id="vbGrid">
+        <div style="text-align:center;color:var(--text-subhead);padding:40px;grid-column:1/-1;">
+            正在加载精选声库...
+        </div>
+    </div>
+</div>
